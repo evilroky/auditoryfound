@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать запись для аудитории</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <p class="displayed"><img th:src="@{/img/logo.svg}" alt="University Logo" class="logo"></p>
+</header>
+<main>
+    <form th:action="@{/}" th:method="get">
+        <button type="submit" class="refresh-button" style="font-size: 15px">⮪</button>
+    </form>
+
+
+    <form th:action="@{/api/create}" th:method="post">
+        <table>
+            <tr>
+                <td style="width: 90%">
+                    <h2>Создать запись для аудитории</h2>
+                </td>
+                <td>
+                    <button type="submit" class="refresh-button">Создать</button>
+                </td>
+            </tr>
+        </table>
+
+        <section class="search-section">
+            <input class="search-box" type="text" name="roomNumber" id="roomNumber" placeholder="Введите номер аудитории" required>
+            <div class="room-list">
+                <select class="room-button" style="height: 40px;" name="buildingId" id="buildingId">
+                    <option value="1" id="1">Мех</option>
+                    <option value="2" id="2">Гидро</option>
+                    <option value="3" id="3">Главный</option>
+                    <option value="4" id="4">Зоо</option>
+                    <option value="5" id="5">Электро</option>
+                    <option value="6" id="6">ЗР</option>
+                    <option value="7" id="7">Эконом</option>
+                    <option value="8" id="8">ВМ</option>
+                </select>
+            </div>
+            <input class="room-floor" type="text" name="floor" id="floor" placeholder="Введите этаж" required>
+            <input class="room-img" type="text" name="floorImage" id="floorImage" placeholder="Введите название изображение(этаж + краткое название корпуса) Пример: 5mh" required>
+        </section>
+
+
+
+        <section class="room-info">
+            <div class="content" id="devices">
+                <h3>Список устройств</h3>
+                <!-- Динамически добавляемые устройства -->
+                <div class="info-section">
+                    <table class="device">
+                        <tr>
+                            <td>
+                                <select class="select-height" name="deviceIds" required>
+                                    <option value="" disabled selected>Выберите устройство</option>
+                                    <option th:each="device : ${devices}"
+                                            th:value="${device.id}"
+                                            th:text="${device.name}"></option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select-height" th:name="devicesAvailability">
+                                    <option value="true">Да</option>
+                                    <option value="false">Нет</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <textarea type="text" th:name="devicesText"></textarea>
+
+                </div>
+            </div>
+        </section>
+
+    </form>
+
+    <button type="submit" class="refresh-button" onclick="addDeviceSection()">Создать устройство</button>
+
+
+    <script th:inline="javascript">
+        const devices = /*[[${devices}]]*/ [];
+    </script>
+    <script>
+        let deviceCount = 0; // Счётчик устройств
+
+        function addDeviceSection() {
+            const container = document.getElementById("devices");
+
+            // Создаём div для нового устройства
+            const newDeviceDiv = document.createElement("div");
+            newDeviceDiv.className = "info-section";
+            newDeviceDiv.innerHTML = `
+        <table class="device">
+            <tr>
+                <td>
+                    <select class="select-height" name="deviceIds" required>
+                        <option value="" disabled selected>Выберите устройство</option>
+                        ${devices.map(device => `
+                            <option value="${device.id}">${device.name}</option>
+                        `).join('')}
+                    </select>
+                </td>
+                <td>
+                    <select class="select-height" name="devicesAvailability">
+                        <option value="true">Да</option>
+                        <option value="false">Нет</option>
+                    </select>
+                </td>
+                <td>
+                <button type="button" class="remove-button" onclick="removeDevice(this)"
+                    style="background: none; border: none; color: red; font-size: 20px; cursor: pointer;">
+                    &times;
+                </button>
+                </td>
+            </tr>
+        </table>
+        <textarea name="devicesText" placeholder="Введите описание"></textarea>
+
+    `;
+
+            // Добавляем новое устройство в контейнер
+            container.appendChild(newDeviceDiv);
+            deviceCount++;
+        }
+
+        function removeDevice(button) {
+            // Удаляем родительский элемент кнопки
+            const deviceDiv = button.closest(".info-section");
+            if (deviceDiv) {
+                deviceDiv.remove();
+            }
+        }
+    </script>
+</main>
+</body>
+</html>

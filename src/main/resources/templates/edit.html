@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование информации по аудитории</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <p class="displayed"><img th:src="@{/img/logo.svg}" alt="University Logo" class="logo"></p>
+</header>
+
+<main>
+    <!--<h2>Поиск информации по аудитории</h2>-->
+    <form th:action="@{/api/search}" th:method="get">
+        <section class="search-section">
+            <!--<label for="roomNumber">Номер аудитории:</label>-->
+            <input class="search-box" type="text" name="roomNumber" id="roomNumber" placeholder="Введите номер аудитории" required>
+
+            <div class="room-list">
+                    <!--<label for="buildingId">Корпус:</label>-->
+                    <select class="room-button" style="height: 40px;" name="buildingId" id="buildingId">
+                        <option value="1" id="1">Мех</option>
+                        <option value="2" id="2">Гидро</option>
+                        <option value="3" id="3">Главный</option>
+                        <option value="4" id="4">Зоо</option>
+                        <option value="5" id="5">Электро</option>
+                        <option value="6" id="6">ЗР</option>
+                        <option value="7" id="7">Эконом</option>
+                        <option value="8" id="8">ВМ</option>
+                    </select>
+            </div>
+
+            <button id="search-button" type="submit">🔍</button>
+        </section>
+    </form>
+
+    <section class="room-info">
+        <h2>Редактирование информации по аудитории</h2>
+
+        <form th:action="@{/api/edit}" method="post">
+            <button type="button" id="add-device-button" class="add-button">Добавить устройство</button>
+            <input type="hidden" name="buildingId" th:value="${buildingId}">
+            <input type="hidden" name="roomNumber" th:value="${roomNumber}">
+            <div th:each="dev : ${devicesList}">
+                <input type="hidden" name="auditoriesId" th:value="${dev.auditoriesId}">
+            </div>
+            <div id="devices-container">
+                <div class="info-section" th:each="device, iterStat : ${devicesList}">
+                    <table class="device">
+                        <tr>
+                            <td>
+                                <input type="hidden" name="deviceListId" th:value="${device.id}">
+                                <select class="select-height" name="deviceId" required>
+                                    <option th:each="availableDevice : ${allDevices}"
+                                            th:value="${availableDevice.id}"
+                                            th:text="${availableDevice.name}"
+                                            th:selected="${device.deviceId == availableDevice.id}"></option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="availability">
+                                    <option value="true" th:selected="${device.availability}">Да</option>
+                                    <option value="false" th:selected="${!device.availability}">Нет</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <textarea name="text" rows="3" th:text="${device.text}"></textarea>
+                    <button type="button" class="delete-button">Удалить устройство</button>
+                </div>
+            </div>
+            <button type="submit" class="refresh-button">Подтвердить изменения</button>
+        </form>
+    </section>
+</main>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const addDeviceButton = document.getElementById("add-device-button");
+        const devicesContainer = document.getElementById("devices-container");
+
+        // Убедимся, что кнопка "Добавить устройство" существует
+        if (addDeviceButton && devicesContainer) {
+            // Преобразуем allDevices, переданное из серверной части в объект JavaScript
+            var allDevices = /*[[${allDevices}]]*/ [];
+
+            // Функция для добавления нового устройства
+            addDeviceButton.addEventListener("click", function () {
+                const newDeviceHtml = `
+                    <div class="info-section">
+                        <table class="device">
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="deviceListId" value="">
+                                    <select class="select-height" name="deviceId" required>
+                                        <option value="" disabled selected>Выберите устройство</option>
+                                        ${allDevices.map(device => `<option value="${device.id}">${device.name}</option>`).join('')}
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="availability">
+                                        <option value="true">Да</option>
+                                        <option value="false">Нет</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <textarea name="text" rows="3"></textarea>
+                        <button type="button" class="delete-button">Удалить устройство</button>
+                    </div>
+                `;
+
+                // Создание нового элемента для устройства
+                const tempDiv = document.createElement("div");
+                tempDiv.innerHTML = newDeviceHtml;
+
+                // Добавление нового устройства в контейнер
+                devicesContainer.appendChild(tempDiv.firstElementChild);
+
+                // Назначаем обработчик для кнопки "Удалить устройство"
+                const deleteButton = tempDiv.querySelector(".delete-button");
+                deleteButton.addEventListener("click", function () {
+                    tempDiv.remove(); // Удаление устройства
+                });
+            });
+
+            // Обработчик для удаления существующих устройств
+            devicesContainer.addEventListener("click", function (event) {
+                if (event.target.classList.contains("delete-button")) {
+                    const deviceSection = event.target.closest(".info-section");
+                    deviceSection.remove(); // Удаление устройства
+                }
+            });
+        } else {
+            console.error("Кнопка 'Добавить устройство' или контейнер для устройств не найдены.");
+        }
+    });
+</script>
+</body>
+</html>

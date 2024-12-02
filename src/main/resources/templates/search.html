@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация об аудитории</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <p class="displayed"><img th:src="@{/img/logo.svg}" alt="University Logo" class="logo"></p>
+</header>
+
+<main>
+    <!--<h2>Поиск информации по аудитории</h2>-->
+
+    <form th:action="@{/api/search}" th:method="get">
+        <section class="search-section">
+            <!--<label for="roomNumber">Номер аудитории:</label>-->
+            <input class="search-box" type="text" name="roomNumber"  id="roomNumber" placeholder="Введите номер аудитории" required>
+
+            <div class="room-list">
+                <!--<label for="buildingId">Корпус:</label>-->
+                <select class="room-button" style="height: 40px;" name="buildingId" id="buildingId">
+                    <option value="1" id="1">Мех</option>
+                    <option value="2" id="2">Гидро</option>
+                    <option value="3" id="3">Главный</option>
+                    <option value="4" id="4">Зоо</option>
+                    <option value="5" id="5">Электро</option>
+                    <option value="6" id="6">ЗР</option>
+                    <option value="7" id="7">Эконом</option>
+                    <option value="8" id="8">ВМ</option>
+                </select>
+            </div>
+
+            <button id="search-button" type="submit">🔍</button>
+        </section>
+    </form>
+
+
+
+    <form th:action="@{/api/edit}" method="get">
+        <input type="hidden" name="roomNumber" th:value="${roomNumber}">
+        <input type="hidden" name="buildingId" th:value="${buildingId}">
+        <button type="submit" class="refresh-button">Обновить состояние аудитории</button>
+    </form>
+
+    <!--<button class="floor-map-button">Просмотреть карту этажа</button>-->
+
+
+    <section class="room-info">
+        <!-- Информация об аудитории -->
+        <div th:if="${auditoryDetails}">
+            <h2>Информация об аудитории</h2>
+            <p>Номер аудитории: <span th:text="${auditoryDetails.number}"></span></p>
+            <p>Корпус: <span th:text="${auditoryDetails.buildingShortname}"></span></p>
+            <p>Этаж: <span th:text="${auditoryDetails.floor}"></span></p>
+
+        </div>
+
+        <!-- Список устройств -->
+        <div class="content" th:if="${devicesList}">
+            <h3>Список устройств</h3>
+            <ul>
+                <li th:each="device : ${devicesList}">
+                    <div class="info-section">
+                        <table class="device">
+                            <tr>
+                                <td style="width: 80%">
+                                    <b><span th:text="${device.name}"></span></b>
+                                </td>
+                                <td>
+                                    <select name="availability" id="availability" style="pointer-events: none; width: 30px; height: 30px; appearance: none; justify-content: center; border: none; font-weight: bold;" >
+                                        <option value="true" th:selected="${!device.availability}">Да</option>
+                                        <option value="false" th:selected="${!device.availability}">Нет</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                        <textarea th:text="${device.text}" readonly></textarea>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <h2>Карта этажа</h2>
+        <div class="map">
+            <img th:src="@{${auditoryDetails.floorImage}}" alt="Карта этажа">
+        </div>
+
+    </section>
+</main>
+</body>
+</html>

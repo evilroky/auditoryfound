@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+header .logo {
+    height: 50px;
+    margin-right: 20px;
+}
+
+main {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#search-button {
+    padding: 8px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.room-info h3 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.room-list {
+
+}
+
+.confirm-button {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.info-section {
+    margin-top: 15px;
+}
+
+.info-section h4 {
+    color: #333;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+textarea {
+    width: 120%;
+    height: 50px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+.toggle {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.toggle span {
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.toggle .selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.device {
+    width: 100%;
+}
+
+.number_audit {
+    margin: 8px;
+}

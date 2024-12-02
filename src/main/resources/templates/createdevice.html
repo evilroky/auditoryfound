@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Добавить устройство</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <p class="displayed"><img th:src="@{/img/logo.svg}" alt="University Logo" class="logo"></p>
+</header>
+<main>
+    <form th:action="@{/api/createdevice}" th:method="post">
+        <h2 style="margin: 10px">Добавлание устройства</h2>
+        <input style="margin: 10px; width: 200px" class="search-box" type="text" name="name" id="name" placeholder="Введите название устройства" required>
+        <button type="submit" class="refresh-button" style="font-size: 15px">Добавить устройство</button>
+    </form>
+</main>
+</body>
+</html>
