@@ -4,8 +4,9 @@ services:
     container_name: mysql-db
     restart: always
     environment:
+      MYSQL_ROOT_PASSWORD: qwerty
       MYSQL_DATABASE: found
-      MYSQL_USER: root
+      MYSQL_USER: user
       MYSQL_PASSWORD: qwerty
     ports:
       - "3307:3306"

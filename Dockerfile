@@ -1,7 +1,7 @@
 FROM mysql:8.0
 ENV MYSQL_ROOT_PASSWORD=qwerty
 ENV MYSQL_DATABASE=found
-ENV MYSQL_USER=root
+ENV MYSQL_USER=user
 ENV MYSQL_PASSWORD=qwerty
 
 COPY found.sql /docker-entrypoint-initdb.d/
