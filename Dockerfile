@@ -6,8 +6,13 @@ ENV MYSQL_PASSWORD=qwerty
 
 COPY found.sql /docker-entrypoint-initdb.d/
 
+FROM gradle:8.10.2-jdk23 AS build
+WORKDIR /app
+COPY . .
+RUN gradle clean build --no-daemon
+
 FROM openjdk:23-jdk
 WORKDIR /app
-COPY build/libs/*.jar app.jar
+COPY --from=build /app/build/libs/*.jar app.jar
 EXPOSE 8081
 CMD ["java", "-jar", "app.jar"]
