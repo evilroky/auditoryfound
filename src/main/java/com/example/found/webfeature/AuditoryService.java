@@ -200,4 +200,46 @@ public class AuditoryService {
         device.setName(name);
         deviceRepository.save(device);
     }
+
+    public List<Building> buildingCheck(){
+        return buildingRepository.findAll();
+    }
+
+    @Transactional
+    public void buildingCreate() {
+        Building building = new Building();
+        building.setId(1);
+        building.setName("Мехфак");
+        building.setShortname("мх");
+        buildingRepository.save(building);
+        building.setId(2);
+        building.setName("Гидро");
+        building.setShortname("гд");
+        buildingRepository.save(building);
+        building.setId(3);
+        building.setName("Главный");
+        building.setShortname("гл");
+        buildingRepository.save(building);
+        building.setId(4);
+        building.setName("Зоо");
+        building.setShortname("зоо");
+        buildingRepository.save(building);
+        building.setId(5);
+        building.setName("Электро");
+        building.setShortname("эл");
+        buildingRepository.save(building);
+        building.setId(6);
+        building.setName("ЗР");
+        building.setShortname("зр");
+        buildingRepository.save(building);
+        building.setId(7);
+        building.setName("Эконом");
+        building.setShortname("эк");
+        buildingRepository.save(building);
+        building.setId(8);
+        building.setName("ВМ");
+        building.setShortname("вм");
+        buildingRepository.save(building);
+    }
+
 }

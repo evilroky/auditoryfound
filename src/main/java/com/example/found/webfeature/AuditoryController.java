@@ -1,8 +1,7 @@
 package com.example.found.webfeature;
 
+import com.example.found.entities.Building;
 import com.example.found.entities.Device;
-import com.example.found.repository.AuditoryRepository;
-import com.example.found.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +17,13 @@ import java.util.Map;
 public class AuditoryController {
     @Autowired
     private AuditoryService auditoryService;
-    @Autowired
-    private AuditoryRepository auditoryRepository;
-    @Autowired
-    private DeviceRepository deviceRepository;
 
     @GetMapping("/")
     public String home(){
+        List<Building> buildings = auditoryService.buildingCheck();
+        if(buildings.isEmpty()){
+            auditoryService.buildingCheck();
+        }
         return "index";
     }
 
@@ -112,8 +111,7 @@ public class AuditoryController {
                                  @RequestParam String floorImage,
                                  @RequestParam(required = false) List<String> devicesText,
                                  @RequestParam List<Boolean> devicesAvailability,
-                                 @RequestParam List<Integer> deviceIds,
-                                 Model model) {
+                                 @RequestParam List<Integer> deviceIds) {
 
         Integer buildingIdInt = Integer.parseInt(buildingId);
         Integer roomNumberInt = Integer.parseInt(roomNumber);
