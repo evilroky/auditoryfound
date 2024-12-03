@@ -22,7 +22,7 @@ public class AuditoryController {
     public String home(){
         List<Building> buildings = auditoryService.buildingCheck();
         if(buildings.isEmpty()){
-            auditoryService.buildingCheck();
+            auditoryService.buildingCreate();
         }
         return "index";
     }
