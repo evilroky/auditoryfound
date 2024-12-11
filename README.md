@@ -2,12 +2,13 @@
 
 ## Требования
 - Docker
-- Docker Compose
+- Git Bash
 
 ## Как запустить
-1. Скачать Docker с официального сайта: https://www.docker.com/products/docker-desktop/
+1.1 Скачать Git Bash с официального сайта: https://git-scm.com/downloads
+1.2 Скачать Docker с официального сайта: https://www.docker.com/products/docker-desktop/
 2. Установите и запустите
-3. Создайте любую папку -> откройте -> пкм -> Открыть в терминале
+3. Создайте любую папку -> откройте -> пкм -> Open GIT Bash Here
 4. Введите поочередно команды:
    
 ```
