@@ -15,12 +15,4 @@ public class Floor {
     private Integer buildingId;
     private Integer floor;
     private String image;
-    @Override
-    public String toString() {
-        return "Floor{id=" + id +
-                ", buildingId=" + buildingId +
-                ", floor=" + floor +
-                ", image='" + image + '\'' +
-                '}';
-    }
 }
