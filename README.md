@@ -10,6 +10,7 @@
 3. Установите (Если не было) и Откройте Docker с рабочего стола
 4. Создайте любую папку -> откройте -> пкм по пустому месту -> Open GIT Bash Here
 5. Введите поочередно команды:
+<<<<<<< HEAD
 
 ```
 git clone https://github.com/evilroky/auditoryfound.git
@@ -21,12 +22,29 @@ docker-compose up --build
 http://localhost:8081/api/
 ##
 
+=======
+   
+```
+git clone https://github.com/evilroky/auditoryfound.git
+cd auditoryfound
+docker-compose up --build
+```
+
+### Дождитесь создания контейнеров и загрузки всех зависимостей и переходите на сайт:
+http://localhost:8081/api/
+##
+
+>>>>>>> f7c7ecddf72fc43adcada0b3827eb17a08d50bfa
 ## Для повторного запуска проекта:
 1. Откройте ранее созданную папку
 2. В ней найдите папку auditoryfound, откройте
 3. пкм по пустому месту -> Open GIT Bash Here
 4. Ввести команды:
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> f7c7ecddf72fc43adcada0b3827eb17a08d50bfa
 ```
 docker-compose up
 ```
@@ -34,4 +52,9 @@ docker-compose up
 ### Дождитесь сообщения о вкулючении и переходите на сайт:
 http://localhost:8081/api/
 
+<<<<<<< HEAD
 ##
+=======
+##
+
+>>>>>>> f7c7ecddf72fc43adcada0b3827eb17a08d50bfa
