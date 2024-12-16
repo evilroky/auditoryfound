@@ -19,18 +19,7 @@ docker-compose up --build
 
 ### Дождитесь создания контейнеров и загрузки всех зависимостей и переходите на сайт:
 http://localhost:8081/api/
-##
 
-   
-```
-git clone https://github.com/evilroky/auditoryfound.git
-cd auditoryfound
-docker-compose up --build
-```
-
-### Дождитесь создания контейнеров и загрузки всех зависимостей и переходите на сайт:
-http://localhost:8081/api/
-##
 
 ## Для повторного запуска проекта:
 1. Откройте ранее созданную папку
